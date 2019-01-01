@@ -1,0 +1,5 @@
+
+Application name	AMPlayer
+API key	775c6c2530723e786441d04222fc7f46
+Shared secret	c4a05e317c23a54a9aac4121415a6cfe
+Registered to	WarezFOB
