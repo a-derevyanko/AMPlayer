@@ -1,21 +1,26 @@
 package com.aderevyanko.amplayer
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.design.widget.Snackbar
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
+import com.aderevyanko.amplayer.artists.SearchArtistActivity
 import kotlinx.android.synthetic.main.activity_main_menu.*
 import kotlinx.android.synthetic.main.app_bar_main_menu.*
+
 
 class MainMenuActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_menu)
+        val toolbar = findViewById(R.id.toolbar) as Toolbar
         setSupportActionBar(toolbar)
 
         fab.setOnClickListener { view ->
@@ -61,8 +66,10 @@ class MainMenuActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
             R.id.nav_library -> {
                 // Handle the camera action
             }
-            R.id.nav_gallery -> {
-
+            R.id.nav_artists -> {
+                val intent = Intent(this, SearchArtistActivity::class.java)
+                this.startActivity(intent)
+                return true
             }
             R.id.nav_slideshow -> {
 
