@@ -1,4 +1,4 @@
-package com.aderevyanko.amplayer.artists
+package com.aderevyanko.amplayer.albums
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -7,15 +7,14 @@ import com.aderevyanko.amplayer.AsyncTaskExecutor
 import com.aderevyanko.amplayer.ImageViewLoaderTask
 import com.aderevyanko.amplayer.LastFMCaller
 import com.aderevyanko.amplayer.R
-import com.aderevyanko.amplayer.albums.AlbumsAdapter
 import kotlinx.android.synthetic.main.activity_artist.*
 
 
-class ArtistActivity : AppCompatActivity() {
 
+class AlbumActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_artist)
+        setContentView(R.layout.activity_album)
         setSupportActionBar(toolbar)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -26,17 +25,20 @@ class ArtistActivity : AppCompatActivity() {
 
     private fun handleIntent() {
         val artist = intent.getStringExtra("artist")
+        val album = intent.getStringExtra("album")
+        val mbid = intent.getStringExtra("mbid")
         val bigImage = intent.getStringExtra("image")
+        val minImage = intent.getStringExtra("minImage")
 
-        supportActionBar?.title = artist
+        supportActionBar?.title = album
         if (!bigImage.isNullOrBlank()) {
             ImageViewLoaderTask(header).execute(bigImage)
         }
 
         AsyncTaskExecutor({
-            LastFMCaller.findArtistAlbums(artist)
+            LastFMCaller.getAlbumInfo(artist, album, mbid)
         }, {
-            albumsList.adapter = AlbumsAdapter(applicationContext, it)
+            albumsList.adapter = TracksAdapter(applicationContext, it, minImage)
         })
     }
 }

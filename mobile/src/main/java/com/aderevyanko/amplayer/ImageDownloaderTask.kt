@@ -23,7 +23,9 @@ internal abstract class ImageDownloaderTask<T> : AsyncTask<T, Void, Bitmap>() {
                 return BitmapFactory.decodeStream(it)
             }
         } catch (e: Exception) {
-            urlConnection!!.disconnect()
+            if (urlConnection != null) {
+                urlConnection.disconnect()
+            }
             Log.w("ImageDownloader", "Error downloading image from $url")
         } finally {
             if (urlConnection != null) {

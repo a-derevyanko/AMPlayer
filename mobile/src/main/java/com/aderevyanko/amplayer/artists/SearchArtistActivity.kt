@@ -21,7 +21,7 @@ class SearchArtistActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search_artist)
 
-        //list.emptyView = empty
+        list.emptyView = empty
 
         list.onItemClickListener = AdapterView.OnItemClickListener { adapterView, view, position, id ->
             kotlin.run {
@@ -47,8 +47,14 @@ class SearchArtistActivity : AppCompatActivity() {
         handleIntent(intent)
     }
 
-    override fun startSearch(initialQuery: String?, selectInitialQuery: Boolean, appSearchData: Bundle?, globalSearch: Boolean) {
-        super.startSearch(initialQuery, selectInitialQuery, appSearchData, globalSearch)
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString("query", intent.getStringExtra(SearchManager.QUERY))
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        searchArtists(savedInstanceState.getString("query"))
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

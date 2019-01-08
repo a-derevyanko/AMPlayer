@@ -13,18 +13,15 @@ internal class ImageViewLoaderTask(imageView: ImageView) : ImageDownloaderTask<S
     }
 
     override fun onPostExecute(bitmap: Bitmap?) {
-        var bitmap = bitmap
-        if (isCancelled) {
-            bitmap = null
-        }
-
-        val imageView = imageViewReference.get()
-        if (imageView != null) {
-            if (bitmap == null) {
-                val placeholder = ContextCompat.getDrawable(imageView.context, R.drawable.ed_logo);
-                imageView.setImageDrawable(placeholder)
-            } else {
-                imageView.setImageBitmap(bitmap)
+        if (!isCancelled) {
+            val imageView = imageViewReference.get()
+            if (imageView != null) {
+                if (bitmap == null) {
+                    val placeholder = ContextCompat.getDrawable(imageView.context, R.drawable.ed_logo);
+                    imageView.setImageDrawable(placeholder)
+                } else {
+                    imageView.setImageBitmap(bitmap)
+                }
             }
         }
     }
